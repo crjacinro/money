@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MoneyMe</string>
+    <string name="quote_calculator">Quote Calculator</string>
+    <string name="calculate_quote">Calculate Quote</string>
+    <string name="months_label">%d months</string>
+    <string name="dialog_message">Do you already have an account for this application?</string>
+    <string name="dialog_yes">Yes. Log me in</string>
+    <string name="dialog_no">I\'m New. Start an application</string>
+</resources>
