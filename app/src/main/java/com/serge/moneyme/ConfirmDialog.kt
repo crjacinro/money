@@ -38,6 +38,4 @@ class ConfirmDialog(
 
         dialog.show()
     }
-
-
 }
