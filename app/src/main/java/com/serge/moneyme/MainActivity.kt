@@ -1,8 +1,11 @@
 package com.serge.moneyme
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DecimalFormat
 
@@ -14,6 +17,8 @@ const val AMOUNT_SLOPE = ((MAXIMUM_AMOUNT - MINIMUM_AMOUNT) / 100)
 const val MINIMUM_MONTHS = 3
 const val MAXIMUM_MONTHS = 36
 const val MONTHS_SLOPE = ((MAXIMUM_MONTHS - MINIMUM_MONTHS).toDouble() / 100)
+
+const val AUTH_REQUEST_CODE = 99
 
 class MainActivity : AppCompatActivity() {
 
@@ -86,9 +91,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun initButtons() {
         calculate_quote.setOnClickListener {
-            val dialog = ConfirmDialog(this)
+            val dialog = ConfirmDialog(this, ::launchAuthUi, ::navigateToQuotesDetails)
 
             dialog.showDialog()
+        }
+    }
+
+    private fun launchAuthUi() {
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build()
+        )
+
+        ActivityCompat.startActivityForResult(
+            this,
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build(), AUTH_REQUEST_CODE,
+            null
+        )
+    }
+
+    private fun navigateToQuotesDetails() {
+        Intent(this, QuoteActivity::class.java).also {
+            startActivity(it)
         }
     }
 }

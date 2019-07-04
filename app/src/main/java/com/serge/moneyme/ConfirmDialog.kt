@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class ConfirmDialog(
-    private val activity: AppCompatActivity
+    private val activity: AppCompatActivity,
+    private val yesListener: () -> Unit,
+    private val noListener: () -> Unit
 ) {
 
     fun showDialog() {
@@ -22,12 +24,20 @@ class ConfirmDialog(
 
         val buttonYes = dialog.findViewById<Button>(R.id.btn_yes)
         buttonYes.text = activity.getString(R.string.dialog_yes)
-        buttonYes.setOnClickListener { dialog.dismiss() }
+        buttonYes.setOnClickListener {
+            yesListener.invoke()
+            dialog.dismiss()
+        }
 
         val buttonNo = dialog.findViewById<Button>(R.id.btn_no)
         buttonNo.text = activity.getString(R.string.dialog_no)
-        buttonNo.setOnClickListener { dialog.dismiss() }
+        buttonNo.setOnClickListener {
+            noListener.invoke()
+            dialog.dismiss()
+        }
 
         dialog.show()
     }
+
+
 }
