@@ -25,14 +25,16 @@ class MainActivity : AppCompatActivity() {
     private val amountFormat = DecimalFormat("$ #,###")
     private val monthsFormat = DecimalFormat("# months")
 
-    private var currentAmountValue = 0
-    private var currentMonthsValue = 0
+    private var currentAmountValue = MINIMUM_AMOUNT.toInt()
+    private var currentMonthsValue = MINIMUM_MONTHS
+    private lateinit var persistence: Persistence
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initializeView()
+        persistence = Persistence(this)
     }
 
     private fun initializeView() {
@@ -91,10 +93,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun initButtons() {
         calculate_quote.setOnClickListener {
-            val dialog = ConfirmDialog(this, ::launchAuthUi, ::navigateToQuotesDetails)
+            val dialog = ConfirmDialog(this, ::onYesSelected, ::onNoSelected)
 
             dialog.showDialog()
         }
+    }
+
+    private fun onYesSelected() {
+        persistence.saveFinanceDetails(currentAmountValue, currentMonthsValue)
+        launchAuthUi()
+    }
+
+    private fun onNoSelected() {
+        persistence.saveFinanceDetails(currentAmountValue, currentMonthsValue)
+        navigateToQuotesDetails()
     }
 
     private fun launchAuthUi() {
