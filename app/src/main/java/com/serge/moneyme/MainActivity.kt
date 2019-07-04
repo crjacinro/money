@@ -1,11 +1,14 @@
 package com.serge.moneyme
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DecimalFormat
 
@@ -124,10 +127,37 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == AUTH_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                onLoginSuccess()
+            } else {
+                notify("Unable to login successfully")
+            }
+        }
+    }
+
+    private fun onLoginSuccess() {
+        val user = FirebaseAuth.getInstance().currentUser
+        val email = user?.email.orEmpty()
+        val displayName = user?.displayName.orEmpty()
+
+        persistence.saveUserEmail(email)
+        persistence.saveDisplayName(displayName)
+        persistence.saveFinanceDetails(currentAmountValue, currentMonthsValue)
+
+        navigateToQuotesDetails()
+    }
+
     private fun navigateToQuotesDetails() {
         Intent(this, QuoteActivity::class.java).also {
             startActivity(it)
         }
     }
+
+    private fun notify(message: String) =
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 

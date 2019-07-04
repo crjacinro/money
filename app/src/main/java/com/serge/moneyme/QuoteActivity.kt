@@ -28,6 +28,12 @@ class QuoteActivity : AppCompatActivity() {
         initFinanceDetailsButton()
         initFinanceAmount()
         initRepayments()
+        initPersonalInfo()
+    }
+
+    private fun initPersonalInfo() {
+        name_value.setText(persistence.getNameValue())
+        email_value.setText(persistence.getEmailValue())
     }
 
     private fun initFinanceDetailsButton() {
