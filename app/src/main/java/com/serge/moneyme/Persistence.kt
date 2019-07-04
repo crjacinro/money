@@ -25,6 +25,10 @@ class Persistence(context: Context) {
         preferences.edit().putString(NAME_KEY, name).apply()
     }
 
+    fun clear() {
+        preferences.edit().clear().apply()
+    }
+
     fun getAmountValue() = preferences.getInt(AMOUNT_KEY, 0)
     fun getMonthsValue() = preferences.getInt(MONTHS_KEY, 0)
     fun getEmailValue() = preferences.getString(EMAIL_KEY, "")

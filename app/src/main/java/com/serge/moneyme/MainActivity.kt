@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         initializeView()
         persistence = Persistence(this)
+        persistence.clear()
     }
 
     private fun initializeView() {
@@ -96,9 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initButtons() {
         calculate_quote.setOnClickListener {
-            val dialog = ConfirmDialog(this, ::onYesSelected, ::onNoSelected)
-
-            dialog.showDialog()
+            ConfirmDialog(this, ::onYesSelected, ::onNoSelected).showDialog()
         }
     }
 

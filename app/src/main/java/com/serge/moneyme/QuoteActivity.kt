@@ -29,6 +29,7 @@ class QuoteActivity : AppCompatActivity() {
         initFinanceAmount()
         initRepayments()
         initPersonalInfo()
+        initButtons()
     }
 
     private fun initPersonalInfo() {
@@ -60,5 +61,11 @@ class QuoteActivity : AppCompatActivity() {
 
     private fun initRepayments() {
         // repayments_value.text = financeAmount
+    }
+
+    private fun initButtons() {
+        apply_now.setOnClickListener {
+            SuccessDialog(this).showDialog()
+        }
     }
 }

@@ -4,6 +4,8 @@
     <string name="calculate_quote">Calculate Quote</string>
     <string name="months_label">%d months</string>
     <string name="dialog_message">Do you already have an account for this application?</string>
+    <string name="success_message">Your application is successful!</string>
+    <string name="dialog_ok">OK</string>
     <string name="dialog_yes">Yes. Log me in</string>
     <string name="dialog_no">I\'m New. Start an application</string>
     <string name="your_quota">Your Quota</string>
