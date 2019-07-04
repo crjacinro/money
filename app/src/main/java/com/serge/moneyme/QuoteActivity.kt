@@ -2,6 +2,7 @@ package com.serge.moneyme
 
 import android.content.Context
 import android.os.Bundle
+import android.text.method.KeyListener
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,10 @@ class QuoteActivity : AppCompatActivity() {
     private val repaymentFormat = DecimalFormat("$ #.## monthly")
 
     private lateinit var persistence: Persistence
+
+    private var nameListener: KeyListener? = null
+    private var mobileListener: KeyListener? = null
+    private var emailListener: KeyListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,31 @@ class QuoteActivity : AppCompatActivity() {
     private fun initPersonalInfo() {
         name_value.setText(persistence.getNameValue())
         email_value.setText(persistence.getEmailValue())
+        edit_info_switch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                enableEditText()
+            } else {
+                disableEditText()
+            }
+        }
+
+        disableEditText()
+    }
+
+    private fun disableEditText() {
+        nameListener = name_value.keyListener
+        emailListener = email_value.keyListener
+        mobileListener = mobile_value.keyListener
+
+        name_value.keyListener = null
+        email_value.keyListener = null
+        mobile_value.keyListener = null
+    }
+
+    private fun enableEditText() {
+        name_value.keyListener = nameListener
+        email_value.keyListener = emailListener
+        mobile_value.keyListener = mobileListener
     }
 
     private fun initFinanceDetailsButton() {
