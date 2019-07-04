@@ -1,4 +1,4 @@
-package com.serge.moneyme
+package com.serge.moneyme.service
 
 import android.content.Context
 import android.content.SharedPreferences

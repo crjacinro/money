@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.serge.moneyme.dialog.ConfirmDialog
+import com.serge.moneyme.service.Persistence
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DecimalFormat
 

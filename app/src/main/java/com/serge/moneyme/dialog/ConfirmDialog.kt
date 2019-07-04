@@ -1,10 +1,11 @@
-package com.serge.moneyme
+package com.serge.moneyme.dialog
 
 import android.app.Dialog
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.serge.moneyme.R
 
 
 class ConfirmDialog(

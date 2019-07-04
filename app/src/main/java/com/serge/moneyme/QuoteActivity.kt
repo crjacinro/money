@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.serge.moneyme.dialog.SuccessDialog
+import com.serge.moneyme.service.PMTHelper.Companion.calculatePMT
+import com.serge.moneyme.service.Persistence
 import kotlinx.android.synthetic.main.activity_quote.*
 import java.text.DecimalFormat
+
+const val INTEREST_RATE = 0.02
+const val PAYMENT_PERIODS = 12
 
 class QuoteActivity : AppCompatActivity() {
 
     private val amountFormat = DecimalFormat("$ #,###")
     private val monthsFormat = DecimalFormat("# months")
+    private val repaymentFormat = DecimalFormat("$ #.## monthly")
 
     private lateinit var persistence: Persistence
 
@@ -60,7 +67,13 @@ class QuoteActivity : AppCompatActivity() {
     }
 
     private fun initRepayments() {
-        // repayments_value.text = financeAmount
+        val periodicInterest = INTEREST_RATE / PAYMENT_PERIODS
+        val amount = persistence.getAmountValue().toDouble()
+        val periods = persistence.getMonthsValue().toDouble()
+
+        val pmt = calculatePMT(periodicInterest, periods, amount)
+
+        repayments_value.text = repaymentFormat.format(pmt)
     }
 
     private fun initButtons() {
