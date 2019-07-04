@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
     private val amountFormat = DecimalFormat("$ #,###")
     private val monthsFormat = DecimalFormat("# months")
 
-    private var currentAmountValue = MINIMUM_AMOUNT.toInt()
-    private var currentMonthsValue = MINIMUM_MONTHS
+    private var currentAmountValue = MINIMUM_AMOUNT.toFloat()
+    private var currentMonthsValue = MINIMUM_MONTHS.toFloat()
     private lateinit var persistence: Persistence
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                 amount_value.text = amountFormat.format(value)
                 amount_value.x = x
 
-                currentAmountValue = value.toInt()
+                currentAmountValue = value.toFloat()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) { /* No operation */
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 months_value.text = monthsFormat.format(value)
                 months_value.x = x
 
-                currentMonthsValue = value.toInt()
+                currentMonthsValue = value.toFloat()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) { /* No operation */

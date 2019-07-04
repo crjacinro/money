@@ -99,7 +99,7 @@ class QuoteActivity : AppCompatActivity() {
     private fun initRepayments() {
         val periodicInterest = INTEREST_RATE / PAYMENT_PERIODS
         val amount = persistence.getAmountValue().toDouble()
-        val periods = persistence.getMonthsValue().toDouble()
+        val periods = persistence.getMonthsValue().toInt()
 
         val pmt = calculatePMT(periodicInterest, periods, amount)
 
